@@ -169,6 +169,7 @@ class NimAI():
         If multiple actions have the same Q-value, any of those
         options is an acceptable return value.
         """
+        # The agent doesn't have knowledge yet
         if self.q.keys() == 0:
             return self.random_move(state)
 
@@ -176,29 +177,16 @@ class NimAI():
         values = [self.q[tuple(state), action] if (tuple(state), action) in self.q.keys() else 0 for action in actions]
 
         if epsilon == False:
-
             return actions[values.index(max(values))]
 
-
-
-
+        # epsilon-greedy
+        # random choices with e
+        # pure greedy with 1 - e
         threshold = self.epsilon * 10
         random_number = random.randint(1,10)
 
         if (random_number > threshold):
             return actions[values.index(max(values))]
-
-            # best_val = self.best_future_reward(state)
-            # if best_val == 0:
-            #     print("DFDSFDSfdfsd")
-            #     return self.random_move(state)
-            # key_list = list(self.q.keys())
-            # val_list = list(self.q.values())
-            # position = val_list.index(best_val)
-            # print(state)
-            # print(key_list[position][1])
-            # print("last")
-            # return key_list[position][1]
         else:
             return self.random_move(state)
 
